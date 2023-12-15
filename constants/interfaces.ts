@@ -7,3 +7,7 @@ export interface HeadingProps{
     iconColor?:string,
     bgColor?:string
 }
+export interface EmptyProps{
+    label:string,
+    
+}

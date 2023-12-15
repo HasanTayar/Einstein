@@ -7,7 +7,7 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { formSchema } from "@/constants/shcema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { MessageSquare } from "lucide-react";
+import { Code } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -18,7 +18,8 @@ import { cn } from "@/lib/utils";
 import { UserAvatar } from "@/components/user-avatar";
 import { BotAvatar } from "@/components/bot-avatar";
 import {ChatCompletionRequestMessage}  from "openai";
-const ConversationPage = () => {
+import ReactMarkDown from 'react-markdown'
+const CodePage = () => {
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
   console.log(messages);
   const router = useRouter();
@@ -36,7 +37,7 @@ const ConversationPage = () => {
         content: values.prompt,
       };
       const newMessages = [...messages, userMessage];
-      const response = await axios.post("/api/conversation", {
+      const response = await axios.post("/api/code", {
         messages: newMessages,
       });
       setMessages((current) => [...current, userMessage, response.data]);
@@ -51,11 +52,11 @@ const ConversationPage = () => {
   return (
     <div>
       <Heading
-        title="Conversation"
-        description="Our most adavnced conversation model."
-        icon={MessageSquare}
-        iconColor="text-violet-500"
-        bgColor="bg-violet-500/10"
+        title="Code Genratetion"
+        description="Genrate code using descriptive text."
+        icon={Code}
+        iconColor="text-green-700"
+        bgColor="bg-green-700/10"
       />
       <div className="px-4 lg:px-8">
         <div>
@@ -73,7 +74,7 @@ const ConversationPage = () => {
                         type="text"
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading}
-                        placeholder="How do I calculate the radius of circle?"
+                        placeholder="Simple toggle button using react hooks"
                         {...field}
                       />
                     </FormControl>
@@ -110,10 +111,20 @@ const ConversationPage = () => {
                 )}
               >
                 {message.role === 'user' ? <UserAvatar/> : <BotAvatar/>}
-                <p className="text-sm">
-
-                {message.content}
-                </p>
+                  <ReactMarkDown components={{
+                    pre:({node , ...props})=>(
+                      <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
+                        <pre {...props}/>
+                      </div>
+                    ),
+                    code:({node , ...props})=>(
+                      <code className="bg-black/10 rounded-lg p-1" {...props}/>
+                    )
+                  }}
+                  className='text-sm overflow-hidden leading-7'
+                  >
+                    {message.content || ''}
+                  </ReactMarkDown>
               </div>
             ))}
           </div>
@@ -123,4 +134,4 @@ const ConversationPage = () => {
   );
 };
 
-export default ConversationPage;
+export default CodePage;
