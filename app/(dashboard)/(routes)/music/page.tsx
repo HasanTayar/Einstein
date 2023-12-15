@@ -13,8 +13,10 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 const MusicPage = () => {
+  const proModal = useProModal();
   const [music, setMusic] = useState<string>();
   const router = useRouter();
   const form = useForm<z.infer<typeof MusicFormSchema>>({
@@ -30,8 +32,10 @@ const MusicPage = () => {
       const response = await axios.post("/api/music",values);
       setMusic(response.data.audio)
       form.reset();
-    } catch (error) {
-      //TODO: Open Pro Modal
+    } catch (error:any) {
+      if(error?.response?.status === 403){
+        proModal.onOpen();
+      }
       console.log(error);
     } finally {
       router.refresh();

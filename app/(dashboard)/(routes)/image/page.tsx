@@ -19,7 +19,9 @@ import { Select, SelectContent, SelectValue } from "@radix-ui/react-select";
 import { SelectItem, SelectTrigger } from "@/components/ui/select";
 import { amountOptions, reslutionOptions } from "@/constants/constatns";
 import { Card, CardFooter } from "@/components/ui/card";
+import { useProModal } from "@/hooks/use-pro-modal";
 const ImagePage = () => {
+  const proModal = useProModal()
   const [images, setImages] = useState<string[]>([]);
   const router = useRouter();
   const form = useForm<z.infer<typeof ImageFormSchema>>({
@@ -38,8 +40,10 @@ const ImagePage = () => {
       const urls = response.data.map((image: { url: string }) => image.url);
       setImages(urls);
       form.reset();
-    } catch (error) {
-      //TODO: Open Pro Modal
+    } catch (error:any) {
+      if(error?.response?.status === 403){
+        proModal.onOpen();
+      }
       console.log(error);
     } finally {
       router.refresh();

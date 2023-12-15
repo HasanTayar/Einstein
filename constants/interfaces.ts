@@ -11,3 +11,14 @@ export interface EmptyProps{
     label:string,
     
 }
+export interface SideBarProps{
+    apiLimitCount:number
+}
+export interface FreeCounterProps{
+    apiLimitCount:number
+}
+export interface useProModalStore{
+    isOpen:boolean;
+    onOpen:()=>void;
+    onClose:()=>void;
+}
