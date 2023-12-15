@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     }
     const freeTrail = checkApiLimit();
     if (!freeTrail) {
-      return new NextResponse("Free Trail has been exprid", { status: 403 });
+      return new NextResponse("Free Trail has been expried", { status: 403 });
     }
     const response = await replicate.run(
       "anotherjesse/zeroscope-v2-xl:9f747673945c62801b13b84701c783929c0ee784e4748ec062204894dda1a351",

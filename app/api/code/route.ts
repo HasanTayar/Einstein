@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     }
     const freeTrial = checkApiLimit();
     if (!freeTrial) {
-      return new NextResponse("Free Trial has exprid", { status: 403 });
+      return new NextResponse("Free Trial has expried", { status: 403 });
     }
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
