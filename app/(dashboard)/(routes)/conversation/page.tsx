@@ -17,7 +17,7 @@ import { Loader } from "@/components/loader";
 import { cn } from "@/lib/utils";
 import { UserAvatar } from "@/components/user-avatar";
 import { BotAvatar } from "@/components/bot-avatar";
-import {ChatCompletionRequestMessage}  from "openai";
+import { ChatCompletionRequestMessage } from "openai";
 const ConversationPage = () => {
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
   const router = useRouter();
@@ -108,11 +108,8 @@ const ConversationPage = () => {
                     : "bg-muted"
                 )}
               >
-                {message.role === 'user' ? <UserAvatar/> : <BotAvatar/>}
-                <p className="text-sm">
-
-                {message.content}
-                </p>
+                {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
+                <p className="text-sm">{message.content}</p>
               </div>
             ))}
           </div>
