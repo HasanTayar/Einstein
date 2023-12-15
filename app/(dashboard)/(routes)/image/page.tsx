@@ -1,5 +1,4 @@
 "use client";
-"use strict";
 import axios from "axios";
 import Heading from "@/components/heading";
 import { Button } from "@/components/ui/button";

@@ -1,5 +1,4 @@
 "use client";
-"use strict";
 import axios from "axios";
 import Heading from "@/components/heading";
 import { Button } from "@/components/ui/button";
@@ -21,7 +20,6 @@ import {ChatCompletionRequestMessage}  from "openai";
 import ReactMarkDown from 'react-markdown'
 const CodePage = () => {
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
-  console.log(messages);
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

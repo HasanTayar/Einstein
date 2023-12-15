@@ -28,9 +28,9 @@ export const routes = [
     color: "text-pink-700",
   },
   {
-    label: "Viedo Genration",
+    label: "Video Genration",
     icon: VideoIcon,
-    href: "/viedo",
+    href: "/video",
     color: "text-orange-700",
   },
   {
@@ -74,9 +74,9 @@ export const tools = [
     bgColor: "text-pink-700/10",
   },
   {
-    label: "Viedo Genration",
+    label: "Video Genration",
     icon: VideoIcon,
-    href: "/viedo",
+    href: "/video",
     color: "text-orange-700",
     bgColor: "text-orange-700/10",
   },
