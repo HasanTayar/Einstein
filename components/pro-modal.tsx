@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils'
 import { Check, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import axios from 'axios'
+import toast from 'react-hot-toast'
 
 export const ProModal = () => {
     const [loading, setLoading] = useState(false)
@@ -19,7 +20,7 @@ export const ProModal = () => {
             const response = axios.get('/api/stripe');
             window.location.href = (await response).data.url;
         } catch (error) {
-            console.log("[STRIPE_CLIENT_ERROR]",error)
+            toast.error("Something went wrong")
         }finally{
             setLoading(false)
         }
@@ -56,7 +57,7 @@ export const ProModal = () => {
                 </DialogDescription>
             </DialogHeader>
             <DialogFooter>
-                <Button onClick={onSubscribe} size='lg' variant='premium' className='w-full'>Upgrade <Zap className='w-4 h-4 ml-2 fill-white'/></Button>
+                <Button disabled={loading} onClick={onSubscribe} size='lg' variant='premium' className='w-full'>Upgrade <Zap className='w-4 h-4 ml-2 fill-white'/></Button>
             </DialogFooter>
         </DialogContent>
     </Dialog>

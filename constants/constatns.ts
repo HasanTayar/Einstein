@@ -126,3 +126,11 @@ export const reslutionOptions = [
   },
 ];
 export const MAX_FREE_COUNTS = 5
+export const testimonials = [
+  {
+    name:"Hasan",
+    avatar:"H",
+    title:"Software Enginner",
+    description:"This is the best app I've used!"
+  },
+]
