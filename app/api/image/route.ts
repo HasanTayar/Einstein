@@ -9,10 +9,7 @@ const configuration = new Configuration({
 });
 
 const openai = new OpenAIApi(configuration);
-const instructionMessage: ChatCompletionRequestMessage = {
-  role: "system",
-  content: "You are chat  and your name is Einstein.",
-};
+
 export async function POST(req: Request) {
   try {
     const { userId } = auth();
