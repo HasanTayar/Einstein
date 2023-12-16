@@ -22,3 +22,6 @@ export interface useProModalStore{
     onOpen:()=>void;
     onClose:()=>void;
 }
+export interface MobileSideBarProps{
+    apiLimitCount:number
+}
