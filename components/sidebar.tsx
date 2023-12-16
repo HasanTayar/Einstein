@@ -10,7 +10,7 @@ import React from "react";
 import { FreeCounter } from "./free-counter";
 const montserrat = Montserrat({ weight: "600", subsets: ["latin"] });
 
-const Sidebar = ({apiLimitCount = 0}:SideBarProps) => {
+const Sidebar = ({apiLimitCount = 0 , isPro=false}:SideBarProps) => {
   const pathname = usePathname();
   return (
     <div className="space-y-4 py-4 flex flex-col h-full bg-[#111827] text-white">
@@ -40,7 +40,7 @@ const Sidebar = ({apiLimitCount = 0}:SideBarProps) => {
           ))}
         </div>
       </div>
-      <FreeCounter apiLimitCount={apiLimitCount} />
+      <FreeCounter apiLimitCount={apiLimitCount} isPro={isPro} />
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { twMerge } from "tailwind-merge"
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
-export function absluteUrl(path:string){
-  return `${process.env.NEXT_PUBLIC_APP_URL}${path}`
+export function absoluteUrl(path:string){
+  console.log(path)
+  return `${process.env.NEXT_PUBLIC_URL}${path}`
 }

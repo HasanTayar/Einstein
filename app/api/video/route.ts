@@ -1,4 +1,5 @@
 import { checkApiLimit, incraseApiLimit } from "@/lib/api-limt";
+import { checkSubscription } from "@/lib/subscription";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import Replicate from "replicate";
@@ -20,7 +21,9 @@ export async function POST(req: Request) {
       return new NextResponse("Prompt is required!", { status: 400 });
     }
     const freeTrail = checkApiLimit();
-    if (!freeTrail) {
+    const isPro = checkSubscription();
+
+    if (!freeTrail && !isPro) {
       return new NextResponse("Free Trail has been expried", { status: 403 });
     }
     const response = await replicate.run(
@@ -31,7 +34,9 @@ export async function POST(req: Request) {
         },
       }
     );
-    await incraseApiLimit();
+    if (!isPro) {
+      await incraseApiLimit();
+    }
     return NextResponse.json(response);
   } catch (error) {
     console.log("[VIDEO_ERROR]", error);

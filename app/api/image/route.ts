@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
 import { incraseApiLimit, checkApiLimit } from "@/lib/api-limt";
+import { checkSubscription } from "@/lib/subscription";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -33,6 +34,8 @@ export async function POST(req: Request) {
       return new NextResponse("resolution is required!", { status: 400 });
     }
     const freeTrial = checkApiLimit();
+    const isPro = checkSubscription();
+
     if (!freeTrial) {
       return new NextResponse("Free Trial has expried", { status: 403 });
     }
@@ -42,7 +45,9 @@ export async function POST(req: Request) {
       n: parseInt(amount, 10),
       size: resolution,
     });
-    await incraseApiLimit();
+    if (!isPro) {
+      await incraseApiLimit();
+    }
     return NextResponse.json(response.data.data);
   } catch (error) {
     console.log("[IMAGE_ERROR]", error);

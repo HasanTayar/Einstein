@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader } from '@/components/ui/dialog'
 import { DialogTitle } from '@radix-ui/react-dialog'
 import { useProModal } from '@/hooks/use-pro-modal'
@@ -8,9 +8,22 @@ import { Card } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import { Check, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import axios from 'axios'
 
 export const ProModal = () => {
+    const [loading, setLoading] = useState(false)
     const proModal = useProModal()
+    const onSubscribe = async ()=>{
+        try {
+            setLoading(true)
+            const response = axios.get('/api/stripe');
+            window.location.href = (await response).data.url;
+        } catch (error) {
+            console.log("[STRIPE_CLIENT_ERROR]",error)
+        }finally{
+            setLoading(false)
+        }
+    }
   return (
     <Dialog open={proModal.isOpen} onOpenChange={proModal.onClose}>
         <DialogContent>
@@ -43,7 +56,7 @@ export const ProModal = () => {
                 </DialogDescription>
             </DialogHeader>
             <DialogFooter>
-                <Button size='lg' variant='premium' className='w-full'>Upgrade <Zap className='w-4 h-4 ml-2 fill-white'/></Button>
+                <Button onClick={onSubscribe} size='lg' variant='premium' className='w-full'>Upgrade <Zap className='w-4 h-4 ml-2 fill-white'/></Button>
             </DialogFooter>
         </DialogContent>
     </Dialog>

@@ -13,9 +13,11 @@ export interface EmptyProps{
 }
 export interface SideBarProps{
     apiLimitCount:number
+    isPro:boolean
 }
 export interface FreeCounterProps{
     apiLimitCount:number
+    isPro:boolean
 }
 export interface useProModalStore{
     isOpen:boolean;
@@ -24,4 +26,8 @@ export interface useProModalStore{
 }
 export interface MobileSideBarProps{
     apiLimitCount:number
+    isPro: boolean
+}
+export interface SubscriptionButtonProps{
+    isPro : boolean
 }
